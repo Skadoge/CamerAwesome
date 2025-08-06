@@ -217,7 +217,7 @@ data class CameraXState(
                 val imageCapture = ImageCapture.Builder()
 //                .setJpegQuality(100)
                     .apply {
-                        //photoSize?.let { setTargetResolution(it) }
+                        photoSize?.let { setTargetResolution(it) }
                         if (rational.denominator != rational.numerator) {
                             setResolutionSelector(resolutionSelector)
                         }

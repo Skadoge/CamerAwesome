@@ -213,13 +213,17 @@ data class CameraXState(
                 useCaseGroupBuilder.addUseCase(previews!!.first())
             }
 
-            if (currentCaptureMode == CaptureModes.PHOTO) {
-                val imageCapture = ImageCapture.Builder()
-//                .setJpegQuality(100)
-                    .apply {
-                        photoSize?.let { setTargetResolution(it) }
-                        if (rational.denominator != rational.numerator) {
-                            setResolutionSelector(resolutionSelector)
+                    if (currentCaptureMode == CaptureModes.PHOTO) {
+                        val imageCapture = ImageCapture.Builder()
+        //                .setJpegQuality(100)
+                        if (photoSize != null) {
+                            // If a specific photoSize is provided from Dart, use it exclusively.
+                            setTargetResolution(photoSize!!)
+                        } else {
+                            // Otherwise, fall back to the original aspect ratio logic.
+                            if (rational.denominator != rational.numerator) {
+                                setResolutionSelector(resolutionSelector)
+                            }
                         }
                         setFlashMode(
                             when (flashMode) {

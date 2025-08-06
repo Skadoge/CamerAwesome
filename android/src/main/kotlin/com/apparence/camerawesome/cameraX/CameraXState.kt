@@ -213,9 +213,10 @@ data class CameraXState(
                 useCaseGroupBuilder.addUseCase(previews!!.first())
             }
 
-                    if (currentCaptureMode == CaptureModes.PHOTO) {
-                        val imageCapture = ImageCapture.Builder()
-        //                .setJpegQuality(100)
+            if (currentCaptureMode == CaptureModes.PHOTO) {
+                val imageCapture = ImageCapture.Builder()
+                    .apply {
+                        // ✨ THIS IS THE CORRECTED LOGIC ✨
                         if (photoSize != null) {
                             // If a specific photoSize is provided from Dart, use it exclusively.
                             setTargetResolution(photoSize!!)
